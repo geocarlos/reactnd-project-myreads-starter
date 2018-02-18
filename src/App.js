@@ -1,9 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './utils/BooksAPI'
 import './App.css';
-import CurrentlyReading from './components/currently_reading';
-import WantToRead from './components/want_to_read';
-import Read from './components/read';
 import BookShelf from './components/book_shelf';
 import SearchPage from './components/search_page';
 
