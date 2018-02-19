@@ -6,10 +6,6 @@ class BookShelf extends Component{
 
     const { bookList, name } = this.props;
 
-    if(bookList.length > 0) {
-      bookList.map((book, i) => console.log(`${i}: ${book.title}, ${book.imageLinks.thumbnail}`))
-    }
-    if(bookList.length < 1) return (<div>Loading data ...</div>)
     return (
       <div className="list-books-content">
         <div>
@@ -17,8 +13,8 @@ class BookShelf extends Component{
             <h2 className="bookshelf-title">{name}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {bookList.map((book, i)=>(
-                  <li key={i}>
+                {bookList.map(book => (
+                  <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
