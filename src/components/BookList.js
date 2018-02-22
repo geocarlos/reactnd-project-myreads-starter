@@ -4,9 +4,6 @@ const BookList = (props) => {
 
   const { bookList, onUpdate } = props;
 
-  // Avoid picking first option right away
-  let chosen = false;
-
   return (<ol className="books-grid">
     {bookList.map(book => (
       <li key={book.id}>
@@ -14,9 +11,10 @@ const BookList = (props) => {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
             <div className="book-shelf-changer">
-              <select onMouseUp={event => {chosen = !chosen; if(!chosen)
-                onUpdate(book, event.target.value); console.log(event.target.value)}}
-                onMouseLeave={()=> chosen = false}>
+              <select
+                defaultValue={book.shelf}
+                onMouseUp={event => {onUpdate(book, event.target.value)}}
+              >
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
