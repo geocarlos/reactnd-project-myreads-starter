@@ -15,7 +15,8 @@ class SearchPage extends Component {
 
   render(){
 
-    const { query, books } = this.state;
+    const { query, books} = this.state;
+    const { onUpdate } = this.props;
 
     return(
       <div className="search-books">
@@ -43,14 +44,13 @@ class SearchPage extends Component {
                     console.log(error);
                   }
                 });
-                console.log(books);
               }}
             />
 
           </div>
         </div>
         <div className="search-books-results">
-          <BookList bookList={books} />
+          <BookList bookList={books} onUpdate={onUpdate} />
         </div>
       </div>
     )

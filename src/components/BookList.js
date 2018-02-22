@@ -2,7 +2,7 @@ import React from 'react';
 
 const BookList = (props) => {
 
-  const { bookList } = props;
+  const { bookList, onUpdate } = props;
 
   return (<ol className="books-grid">
     {bookList.map(book => (
@@ -11,7 +11,7 @@ const BookList = (props) => {
           <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
             <div className="book-shelf-changer">
-              <select>
+              <select onMouseUp={event => {onUpdate(book, event.target.value); console.log(event.target.value)}}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
