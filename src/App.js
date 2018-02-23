@@ -64,6 +64,7 @@ class BooksApp extends React.Component {
         <Route path='/search' render={()=>(
           <SearchPage
             searchBooks={BooksAPI.search}
+            bookList={books}
             onUpdate={this.updateBook}
           />
         )} />

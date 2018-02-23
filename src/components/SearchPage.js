@@ -5,18 +5,30 @@ import BookList from './BookList';
 class SearchPage extends Component {
 
   state = {
-    query: '',
     books: []
   }
 
-  updateQuery = (query)=>{
-    this.setState({query: query})
+  updateBookList(books){
+    this.setState({books: books});
+  }
+
+  clearBookList(){
+    this.setState({books: []});
+  }
+
+  checkShelf = (book) => {
+    this.props.bookList.map(shelfBook => {
+      if(book.id === shelfBook.id){
+        book.shelf = shelfBook.shelf;
+      }
+    })
   }
 
   render(){
 
-    const { query, books} = this.state;
     const { onUpdate } = this.props;
+
+    let query = "";
 
     return(
       <div className="search-books">
@@ -34,23 +46,25 @@ class SearchPage extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={query}
               onChange={event => {
-                this.updateQuery(event.target.value)
-                this.props.searchBooks(query).then(books => {
-                  try{
-                    this.setState({books: books});
-                  } catch(error){
-                    console.log(error);
-                  }
-                });
+                query = event.target.value;
+                if(query !== ""){
+                  this.props.searchBooks(query).then(books => {
+                    this.updateBookList(books);
+                  });
+                } else {
+                  this.clearBookList();
+                }
               }}
             />
 
           </div>
         </div>
         <div className="search-books-results">
-          <BookList bookList={books} onUpdate={onUpdate} />
+          <BookList
+            bookList={this.state.books}
+            checkSearchShelf={this.checkShelf}
+            onUpdate={onUpdate} />
         </div>
       </div>
     )
