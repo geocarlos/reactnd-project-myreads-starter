@@ -8,6 +8,9 @@ body, .app {
   background: white;
 }
 
+select{
+  text-indent: 5px;
+}
 /* main page */
 
 .list-books-title {

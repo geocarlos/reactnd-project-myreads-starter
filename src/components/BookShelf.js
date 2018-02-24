@@ -10,7 +10,7 @@ const BookShelf = (props) => {
       <div className="bookshelf">
         <h2 className="bookshelf-title">{name}</h2>
         <div className="bookshelf-books">
-          <BookList bookList={bookList} onUpdate={onUpdate}/>
+          <BookList bookList={bookList} onUpdate={onUpdate} />
         </div>
       </div>
     </div>

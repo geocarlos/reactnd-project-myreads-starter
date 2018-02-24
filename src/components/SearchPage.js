@@ -16,6 +16,7 @@ class SearchPage extends Component {
     this.setState({books: []});
   }
 
+  // Show book shelf on search results
   checkShelf = (book) => {
     this.props.bookList.map(shelfBook => {
       if(book.id === shelfBook.id){
@@ -26,7 +27,7 @@ class SearchPage extends Component {
 
   render(){
 
-    const { onUpdate } = this.props;
+    const { onUpdate, checkMark, checked, setCheckMark } = this.props;
 
     let query = "";
 
@@ -51,10 +52,12 @@ class SearchPage extends Component {
                 if(query !== ""){
                   this.props.searchBooks(query).then(books => {
                     this.updateBookList(books);
+                    setCheckMark();
                   });
                 } else {
                   this.clearBookList();
                 }
+
               }}
             />
 
@@ -64,7 +67,9 @@ class SearchPage extends Component {
           <BookList
             bookList={this.state.books}
             checkSearchShelf={this.checkShelf}
-            onUpdate={onUpdate} />
+            onUpdate={onUpdate}
+            checkMark={checkMark}
+            checked={checked}/>
         </div>
       </div>
     )

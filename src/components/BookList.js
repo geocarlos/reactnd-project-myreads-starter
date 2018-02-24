@@ -8,11 +8,19 @@ const BookList = (props) => {
     return <div></div>;
   }
 
+  // Check if a book is in one of the three shelves
   if(props.checkSearchShelf){
     bookList.map(book => {
       props.checkSearchShelf(book);
     })
   }
+
+  const options = [
+    {value: "currentlyReading", text: "Currently Reading"},
+    {value: "wantToRead", text: "Want to Read"},
+    {value: "read", text: "Read"},
+    {value: "none", text: "None"}
+  ]
 
   return (<ol className="books-grid">
     {bookList.map(book => (
@@ -23,13 +31,14 @@ const BookList = (props) => {
             <div className="book-shelf-changer">
               <select
                 defaultValue={!!book.shelf?book.shelf:"none"}
-                onClick={event => {onUpdate(book, event.target.value)}}
+                onClick={event => {
+                  onUpdate(book, event.target.value);
+                }}
               >
                 <option value="none" disabled>Move to...</option>
-                <option value="currentlyReading">Currently Reading</option>
-                <option value="wantToRead">Want to Read</option>
-                <option value="read">Read</option>
-                <option value="none">None</option>
+                {options.map((option, i)=>(
+                    <option key={i} value={option.value}>{option.text}</option>
+                ))}
               </select>
             </div>
           </div>
