@@ -5,15 +5,7 @@ import BookList from './BookList';
 class SearchPage extends Component {
 
   state = {
-    books: []
-  }
-
-  updateBookList(books){
-    this.setState({books: books});
-  }
-
-  clearBookList(){
-    this.setState({books: []});
+    query: ""
   }
 
   // Show book shelf on search results
@@ -25,11 +17,22 @@ class SearchPage extends Component {
     })
   }
 
+  updateQuery = (query) => {
+    this.setState({query: query})
+    if(query !== ""){
+      this.props.searchBooks(query).then(books => {
+        this.props.updateSearch(books);
+      });
+    } else {
+      this.props.clearSearch();
+    }
+  }
+
   render(){
 
-    const { onUpdate, checkMark, checked, setCheckMark } = this.props;
+    const { onUpdate, searchResults, updateSearch, clearSearch } = this.props;
 
-    let query = "";
+    const { query } = this.state;
 
     return(
       <div className="search-books">
@@ -46,18 +49,10 @@ class SearchPage extends Component {
             */}
             <input
               type="text"
+              value={query}
               placeholder="Search by title or author"
               onChange={event => {
-                query = event.target.value;
-                if(query !== ""){
-                  this.props.searchBooks(query).then(books => {
-                    this.updateBookList(books);
-                    setCheckMark();
-                  });
-                } else {
-                  this.clearBookList();
-                }
-
+                this.updateQuery(event.target.value);
               }}
             />
 
@@ -65,11 +60,9 @@ class SearchPage extends Component {
         </div>
         <div className="search-books-results">
           <BookList
-            bookList={this.state.books}
+            bookList={searchResults}
             checkSearchShelf={this.checkShelf}
-            onUpdate={onUpdate}
-            checkMark={checkMark}
-            checked={checked}/>
+            onUpdate={onUpdate} />
         </div>
       </div>
     )

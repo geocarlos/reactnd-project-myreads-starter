@@ -7,7 +7,8 @@ import SearchPage from './components/SearchPage';
 
 class BooksApp extends React.Component {
   state = {
-      books: []
+      books: [],
+      searchResults: []
   }
 
   componentDidMount(){
@@ -25,8 +26,16 @@ class BooksApp extends React.Component {
       this.updateBookList();
   }
 
+  updateSearchResults(results){
+    this.setState({searchResults: results});
+  }
+
+  clearSearchResults(){
+    this.setState({searchResults: []})
+  }
+
   render() {
-    const { books } = this.state;
+    const { books, searchResults } = this.state;
 
     return (
       <div className="app">
@@ -66,6 +75,9 @@ class BooksApp extends React.Component {
             searchBooks={BooksAPI.search}
             bookList={books}
             onUpdate={this.updateBook}
+            searchResults={searchResults}
+            updateSearch={(results)=>this.updateSearchResults(results)}
+            clearSearch={()=>this.clearSearchResults()}
           />
         )} />
 
