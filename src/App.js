@@ -12,7 +12,9 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount(){
-    this.updateBookList();
+    BooksAPI.getAll().then(books =>{
+      this.setState({books: books})
+    });
   }
 
   /*
@@ -22,15 +24,15 @@ class BooksApp extends React.Component {
     this.clearSearchResults();
   }
 
-  updateBookList(){
-    BooksAPI.getAll().then(books =>{
-      this.setState({books: books})
-    });
-  }
-
   updateBook = (book, shelf)=>{
-      BooksAPI.update(book, shelf);
-      this.updateBookList();
+      if (book.shelf !== shelf) {
+      BooksAPI.update(book, shelf).then(() => {
+        book.shelf = shelf;
+        this.setState(state => ({
+          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        }))
+      })
+    }
   }
 
   updateSearchResults(results){
