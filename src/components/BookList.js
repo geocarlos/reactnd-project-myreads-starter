@@ -10,9 +10,7 @@ const BookList = (props) => {
 
   // Check if a book is in one of the three shelves
   if(props.checkSearchShelf){
-    bookList.map(book => {
-      props.checkSearchShelf(book);
-    })
+    bookList.map(book => props.checkSearchShelf(book))
   }
 
   const options = [

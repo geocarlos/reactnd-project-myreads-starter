@@ -30,7 +30,7 @@ class SearchPage extends Component {
 
   render(){
 
-    const { onUpdate, searchResults, updateSearch, clearSearch } = this.props;
+    const { onUpdate, searchResults } = this.props;
 
     const { query } = this.state;
 
@@ -61,7 +61,7 @@ class SearchPage extends Component {
         <div className="search-books-results">
           <BookList
             bookList={searchResults}
-            checkSearchShelf={this.checkShelf}
+            checkSearchShelf={book=>this.checkShelf(book)}
             onUpdate={onUpdate} />
         </div>
       </div>
