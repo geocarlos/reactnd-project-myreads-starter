@@ -15,6 +15,13 @@ class BooksApp extends React.Component {
     this.updateBookList();
   }
 
+  /*
+    Prevent previous search results to show when returning to the search page
+  */
+  componentWillReceiveProps(){
+    this.clearSearchResults();
+  }
+
   updateBookList(){
     BooksAPI.getAll().then(books =>{
       this.setState({books: books})

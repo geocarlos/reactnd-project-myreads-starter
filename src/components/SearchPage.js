@@ -14,6 +14,7 @@ class SearchPage extends Component {
       if(book.id === shelfBook.id){
         book.shelf = shelfBook.shelf;
       }
+      return null; // Just get rid of the warning without dealing with ESLint :D
     })
   }
 
