@@ -61,7 +61,7 @@ class BooksApp extends React.Component {
 
             <BookShelf
               bookList={books.filter(book => book.shelf === "wantToRead")}
-              name="Want To Read"
+              name="Want to Read"
               onUpdate={this.updateBook}
             />
 
